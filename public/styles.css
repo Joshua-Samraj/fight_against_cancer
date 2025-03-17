@@ -65,14 +65,23 @@ img {
 .profile-img {
     width: 200px;
     height: 200px;
-    border-radius: 50%;
+    border-radius: 30%;
     object-fit: cover;
     align-content: center;
     top: 50%;
+    bottom: 50%;
+    box-shadow: #000000 0px 0px 10px;
 }
+
+.profile-imG:hover {
+    transform: scale(1.1);
+    border-radius: 50%;
+   
+}
+
 .subtitle_1 {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 15px;
+    font-size: 18px;
     font-weight:bolder;
     margin-top: 10px;
     margin-bottom: 5px;
@@ -103,7 +112,7 @@ img {
     margin: 10px 0;
     border-radius: 5px;
     text-decoration: none;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: #000000 0px 0px 10px;
     transition: background 0.3s ease;
 }
 
