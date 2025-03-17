@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIGHT AGAINST CANCER</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <img src="logo.jpg" alt="Profile Picture" class="profile-img">
+        <div class="title">FIGHT AGAINST CANCER</div>
+        <div class="subtitle">VENUE : சிவந்திப்பட்டி, கமராஜநகர், பருத்திப்பாடு</div>
+        <a href="#" class="btn" id="openModal"> 📖 E - Invitation</a>
+        <a href="#" class="btn" id="openMap"> 📍Location Map</a>
+        <a href="#" class="btn" id="openDonate"> 💰To Donate this event</a>
+        <a href="https://www.youtube.com/@livinghopetrust4471" class="btn" target="_blank">📺 Youtube channel</a>
+        <a href="#" class="btn" id="openContact"> 📞 Contact</a> <!-- Contact Button -->
+
+        <!-- Image Slider Inside Container -->
+        <div class="slider">
+            <div class="slides">
+                <img src="1.jpg" class="slide" alt="Image 1">
+                <img src="9.jpg" class="slide" alt="Image 2">
+                <img src="3.jpg" class="slide" alt="Image 3">
+                <img src="4.jpg" class="slide" alt="Image 4">
+                <img src="5.jpg" class="slide" alt="Image 5">
+                <img src="6.jpg" class="slide" alt="Image 6">
+                <img src="7.jpg" class="slide" alt="Image 7">
+                <img src="8.jpg" class="slide" alt="Image 8">
+                <img src="2.jpg" class="slide" alt="Image 9">
+                <img src="10.jpg" class="slide" alt="Image 10">
+            </div>
+            <button class="prev" onclick="prevSlide()">&#10094;</button>
+            <button class="next" onclick="nextSlide()">&#10095;</button>
+        </div>
+    </div>
+
+    <!-- Modal for E-Invitation -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <img src="invitation.jpg" alt="E-Invitation" class="modal-img_2">
+        </div>
+    </div>
+
+    <!-- Modal for Donation -->
+    <div id="donationModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeDonate">&times;</span>
+            <img src="donation.jpg" alt="To Donate this event" class="modal-img_1">
+        </div>
+    </div>
+
+    <!-- Modal for Google Map -->
+    <div id="mapModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeMap">&times;</span>
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3790.4211173304484!2d77.7872134!3d8.643590399999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b040d005c9a0925%3A0xb452425a5d142a30!2sSivanthipatti%20marriage%20hall!5e1!3m2!1sen!2sin!4v1742240768137!5m2!1sen!2sin" 
+                width="100%" 
+                height="400" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </div>
+
+    <!-- Modal for Contact -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeContact">&times;</span>
+            <h2>📞 Contact Information</h2>
+
+            <!-- Click to Copy Phone Number -->
+            <p>
+                <strong>Phone:</strong> 
+                <span id="phoneNumber" class="copy-text">+91 9500561937</span>
+                <button id="copyPhone" class="copy-btn">📋 Copy</button>
+            </p>
+
+            <!-- Click to Open Mail App -->
+            <p>
+                <strong>Email:</strong> 
+                <a href="mailto:livinghopecharitable@gmail.com" id="emailLink">
+                    livinghopecharitable@gmail.com
+                </a>
+            </p>
+
+            <!-- Success Message -->
+            <p id="copySuccess" style="color: green; display: none;">✅ Number copied!</p>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>
