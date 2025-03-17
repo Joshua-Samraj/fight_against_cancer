@@ -46,6 +46,7 @@ img {
     display: block;
 }
 
+
 .upi-btn {
     display: inline-block;
     padding: 10px 20px;
@@ -69,11 +70,21 @@ img {
     align-content: center;
     top: 50%;
 }
+.subtitle_1 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 18px;
+    font-weight:bolder;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    color: #ff0000;
 
+
+}
 .title {
     font-size: 20px;
     font-weight: bold;
     margin-top: 10px;
+    margin-bottom: 5px;
     color: #000000;
 }
 
