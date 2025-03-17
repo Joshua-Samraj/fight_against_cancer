@@ -65,7 +65,7 @@ img {
 .profile-img {
     width: 200px;
     height: 200px;
-    border-radius: 30%;
+    border-radius: 18%;
     object-fit: cover;
     align-content: center;
     top: 50%;
