@@ -15,6 +15,25 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.icon_y {
+    width: 30px;  /* Adjust size as needed */
+    height: 20px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+.icon_i {
+    width: 30px;  /* Adjust size as needed */
+    height: 30px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+/* Prevent image dragging */
+img {
+    pointer-events: none;
+    -webkit-user-drag: none;
+    user-drag: none;
+}
 
 .profile-img {
     width: 200px;
