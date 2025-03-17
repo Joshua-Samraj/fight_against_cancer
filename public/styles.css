@@ -34,6 +34,32 @@ img {
     -webkit-user-drag: none;
     user-drag: none;
 }
+.upi-section {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.upi-qr {
+    width: 150px;
+    height: 150px;
+    margin: 10px auto;
+    display: block;
+}
+
+.upi-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #25d366; /* WhatsApp-like green */
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.upi-btn:hover {
+    background-color: #1da851;
+}
 
 .profile-img {
     width: 200px;
