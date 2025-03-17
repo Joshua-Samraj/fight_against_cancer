@@ -57,6 +57,12 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+// Disable right-click on images
+document.addEventListener("contextmenu", function (e) {
+    if (e.target.tagName === "IMG") {
+        e.preventDefault();
+    }
+});
 
 
 document.addEventListener("DOMContentLoaded", function () {
