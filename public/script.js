@@ -13,21 +13,32 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         function nextSlide() {
+            resetAutoSlide(); // Reset auto-slide before moving to the next
             slideIndex = (slideIndex + 1) % totalSlides;
             updateSlidePosition();
         }
 
         function prevSlide() {
+            resetAutoSlide(); // Reset auto-slide before moving to the previous
             slideIndex = (slideIndex - 1 + totalSlides) % totalSlides;
             updateSlidePosition();
         }
 
-        // Auto-change slides every 3 seconds
-        setInterval(nextSlide, 3000);
+        let autoSlideInterval = setInterval(nextSlide, 5000);
+
+        function resetAutoSlide() {
+            clearInterval(autoSlideInterval); // Stop the previous interval
+            autoSlideInterval = setInterval(nextSlide, 3000); // Restart it
+        }
 
         // Attach event listeners for next/prev buttons
-        slider.querySelector(".next").addEventListener("click", nextSlide);
-        slider.querySelector(".prev").addEventListener("click", prevSlide);
+        slider.querySelector(".next").addEventListener("click", function () {
+            nextSlide();
+        });
+
+        slider.querySelector(".prev").addEventListener("click", function () {
+            prevSlide();
+        });
     });
 
     // Modal Handling
