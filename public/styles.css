@@ -225,6 +225,20 @@ button:hover {
     background-color: rgba(0, 0, 0, 0.7);
     animation: fadeIn 0.5s ease-in-out;
 }
+.slider-container {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+    min-width: 100%;
+}
 
 .modal-content {
     position: relative;
