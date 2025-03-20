@@ -170,6 +170,7 @@ img {
     padding: 20px;
     border-radius: 10px;
     width: 80%;
+    height: fit-content;
     
     max-width: 500px;
     text-align: center;
