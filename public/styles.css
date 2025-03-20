@@ -277,13 +277,13 @@ button:hover {
     background: white;
     margin: 10% auto;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 20px;
     width: 80%;
     max-width: 500px;
     text-align: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     animation: slideDown 0.5s ease-in-out;
-    height: 650px;;
+    height: 650px;
 }
 
 .close {
