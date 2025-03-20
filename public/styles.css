@@ -273,7 +273,7 @@ button:hover {
     min-width: 100%;
 }
 
-.modal-content {
+.modal-content_2 {
     position: relative;
     background: white;
     margin: 10% auto;
@@ -284,7 +284,7 @@ button:hover {
     text-align: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     animation: slideDown 0.5s ease-in-out;
-    height: 650px;
+    
 }
 
 .close {
