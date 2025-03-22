@@ -5,24 +5,26 @@ const toggleVolume = document.getElementById("toggle-volume");
 const volumeContainer = document.getElementById("volume-container");
 
 let isPlaying = false;
-musicBtn.textContent = "Play Music";
 
-// Play music automatically
+// Attempt to autoplay (start muted to bypass restrictions)
 window.addEventListener("DOMContentLoaded", () => {
-    audio.play().catch(error => console.log("Autoplay blocked:", error));
-    musicBtn.textContent = "Pause Music";
+    audio.muted = true;  // Start muted to allow autoplay
+    audio.play().then(() => {
+        audio.muted = false; // Unmute after play starts
+        musicBtn.textContent = "Pause Music";
+        isPlaying = true;
+    }).catch(error => console.log("Autoplay blocked:", error));
 });
 
 // Toggle Play/Pause
 musicBtn.addEventListener("click", () => {
     if (isPlaying) {
-        audio.play();
-        musicBtn.textContent = "Pause Music";
-    } else {
-        
-
         audio.pause();
         musicBtn.textContent = "Play Music";
+    } else {
+        audio.play();
+        audio.muted = false; // Unmute when user interacts
+        musicBtn.textContent = "Pause Music";
     }
     isPlaying = !isPlaying;
 });
