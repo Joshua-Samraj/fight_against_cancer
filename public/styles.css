@@ -287,15 +287,6 @@ button:hover {
     
 }
 
-.close {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    font-size: 24px;
-    cursor: pointer;
-}
-
-
 /* Animations */
 @keyframes fadeIn {
     from { opacity: 0; }
@@ -306,9 +297,6 @@ button:hover {
     from { transform: translateY(-50px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
 }
-
-
-
 
 /* ========================================== */
 
