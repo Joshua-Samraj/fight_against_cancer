@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let autoSlideInterval;
         let startX = 0;
         let endX = 0;
+        let isSwiping = false;
 
         function updateSlidePosition() {
             slidesContainer.style.transform = `translateX(-${slideIndex * 100}%)`;
@@ -72,10 +73,19 @@ document.addEventListener("DOMContentLoaded", function () {
         // Swipe functionality (for touch devices)
         slider.addEventListener("touchstart", (e) => {
             startX = e.touches[0].clientX;
+            isSwiping = true;
+        });
+
+        slider.addEventListener("touchmove", (e) => {
+            if (isSwiping) {
+                endX = e.touches[0].clientX;
+            }
         });
 
         slider.addEventListener("touchend", (e) => {
-            endX = e.changedTouches[0].clientX;
+            if (!isSwiping) return;
+            isSwiping = false;
+
             if (startX - endX > 50) {
                 stopAutoSlide();
                 nextSlide();
@@ -86,6 +96,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 startAutoSlide();
             }
         });
+
+        // Ensure swipe works by adding click/touch event to the slider itself
+        slider.addEventListener("click", playMusic);
+        slider.addEventListener("touchend", playMusic);
     });
 
     // Modal Handling
@@ -96,6 +110,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         openBtn.addEventListener("click", function () {
             modal.style.display = "block";
+            playMusic(); // Start music when any modal opens
         });
 
         closeBtn.addEventListener("click", function () {
