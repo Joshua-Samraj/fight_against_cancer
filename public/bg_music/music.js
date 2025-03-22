@@ -3,10 +3,10 @@ const audio = document.getElementById("audio");
 
 let isPlaying = false; // Start in paused state
 
-// Function to start audio on first scroll or touch
-const startAudioOnScrollOrTouch = () => {
+// Function to start audio on user interaction (scroll or touch)
+const startAudio = () => {
     audio.play().then(() => {
-        console.log("Audio started on scroll/touch.");
+        console.log("Audio started on user interaction.");
         musicBtn.textContent = "Pause Music";
         isPlaying = true;
     }).catch(error => {
@@ -14,13 +14,13 @@ const startAudioOnScrollOrTouch = () => {
     });
 
     // Remove event listeners after first interaction
-    window.removeEventListener("scroll", startAudioOnScrollOrTouch);
-    window.removeEventListener("touchstart", startAudioOnScrollOrTouch);
+    window.removeEventListener("scroll", startAudio);
+    window.removeEventListener("touchstart", startAudio);
 };
 
 // Listen for the first user scroll or touch event to start audio
-window.addEventListener("scroll", startAudioOnScrollOrTouch, { once: true });
-window.addEventListener("touchstart", startAudioOnScrollOrTouch, { once: true });
+window.addEventListener("scroll", startAudio, { once: true });
+window.addEventListener("touchstart", startAudio, { once: true });
 
 // Toggle Play/Pause Button
 musicBtn.addEventListener("click", () => {
