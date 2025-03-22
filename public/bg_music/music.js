@@ -1,26 +1,24 @@
 const musicBtn = document.getElementById("music-btn");
 const audio = document.getElementById("audio");
 
-let isPlaying = true; // Default to playing
+let isPlaying = false; // Start in paused state
 
-// Autoplay on page load
-window.addEventListener("DOMContentLoaded", () => {
-    audio.muted = false; // Ensure it's unmuted
+// Function to start audio on first scroll
+const startAudioOnScroll = () => {
     audio.play().then(() => {
-        console.log("Audio autoplay started.");
+        console.log("Audio started on scroll.");
         musicBtn.textContent = "Pause Music";
+        isPlaying = true;
     }).catch(error => {
-        console.log("Autoplay blocked, waiting for user interaction:", error);
+        console.log("Playback failed:", error);
     });
-});
 
-// Click anywhere to start audio if autoplay is blocked
-document.body.addEventListener("click", () => {
-    if (audio.paused) {
-        audio.play();
-        musicBtn.textContent = "Pause Music";
-    }
-}, { once: true }); // Runs only once
+    // Remove event listener after first scroll
+    window.removeEventListener("scroll", startAudioOnScroll);
+};
+
+// Listen for the first user scroll event to start audio
+window.addEventListener("scroll", startAudioOnScroll, { once: false });
 
 // Toggle Play/Pause Button
 musicBtn.addEventListener("click", () => {
