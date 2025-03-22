@@ -4,8 +4,8 @@ const audio = document.getElementById("audio");
 const toggleVolume = document.getElementById("toggle-volume");
 const volumeContainer = document.getElementById("volume-container");
 
-let isPlaying = true;
-
+let isPlaying = false;
+musicBtn.textContent = "Play Music";
 
 // Play music automatically
 window.addEventListener("DOMContentLoaded", () => {
@@ -16,12 +16,12 @@ window.addEventListener("DOMContentLoaded", () => {
 // Toggle Play/Pause
 musicBtn.addEventListener("click", () => {
     if (isPlaying) {
-        audio.play();
+        audio.pause();
         musicBtn.textContent = "Pause Music";
     } else {
         
 
-        audio.pause();
+        audio.play();
         musicBtn.textContent = "Play Music";
     }
     isPlaying = !isPlaying;
