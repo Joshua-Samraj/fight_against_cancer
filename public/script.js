@@ -1,4 +1,19 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // Select audio element
+    const audio = document.getElementById("audio");
+    let isPlaying = false;
+
+    function playMusic() {
+        if (!isPlaying) {
+            audio.play().then(() => {
+                console.log("Music started.");
+                isPlaying = true;
+            }).catch(error => {
+                console.log("Playback failed:", error);
+            });
+        }
+    }
+
     // Automatic Image Slider for each slider container
     const sliders = document.querySelectorAll(".slider");
 
@@ -44,12 +59,14 @@ document.addEventListener("DOMContentLoaded", function () {
             stopAutoSlide();
             nextSlide();
             startAutoSlide();
+            playMusic(); // Start music when clicking the next button
         });
 
         slider.querySelector(".prev").addEventListener("click", function () {
             stopAutoSlide();
             prevSlide();
             startAutoSlide();
+            playMusic(); // Start music when clicking the previous button
         });
 
         // Swipe functionality
@@ -63,10 +80,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 stopAutoSlide();
                 nextSlide();
                 startAutoSlide();
+                playMusic(); // Start music on swipe left (next slide)
             } else if (endX - startX > 50) {
                 stopAutoSlide();
                 prevSlide();
                 startAutoSlide();
+                playMusic(); // Start music on swipe right (previous slide)
             }
         });
     });
