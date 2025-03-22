@@ -33,11 +33,13 @@ document.addEventListener("DOMContentLoaded", function () {
         function nextSlide() {
             slideIndex = (slideIndex + 1) % totalSlides;
             updateSlidePosition();
+            playMusic(); // Start music on next slide
         }
 
         function prevSlide() {
             slideIndex = (slideIndex - 1 + totalSlides) % totalSlides;
             updateSlidePosition();
+            playMusic(); // Start music on previous slide
         }
 
         function startAutoSlide() {
@@ -59,17 +61,15 @@ document.addEventListener("DOMContentLoaded", function () {
             stopAutoSlide();
             nextSlide();
             startAutoSlide();
-            playMusic(); // Start music when clicking the next button
         });
 
         slider.querySelector(".prev").addEventListener("click", function () {
             stopAutoSlide();
             prevSlide();
             startAutoSlide();
-            playMusic(); // Start music when clicking the previous button
         });
 
-        // Swipe functionality
+        // Swipe functionality (for touch devices)
         slider.addEventListener("touchstart", (e) => {
             startX = e.touches[0].clientX;
         });
@@ -80,12 +80,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 stopAutoSlide();
                 nextSlide();
                 startAutoSlide();
-                playMusic(); // Start music on swipe left (next slide)
             } else if (endX - startX > 50) {
                 stopAutoSlide();
                 prevSlide();
                 startAutoSlide();
-                playMusic(); // Start music on swipe right (previous slide)
             }
         });
     });
