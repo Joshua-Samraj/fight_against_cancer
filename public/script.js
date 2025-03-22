@@ -23,29 +23,24 @@ document.addEventListener("DOMContentLoaded", function () {
         const totalSlides = slides.length;
         let autoSlideInterval;
         let isSwiping = false;
-        let isTransitioning = false;
         let startX = 0;
         let endX = 0;
 
         function updateSlidePosition() {
             slidesContainer.style.transition = "transform 0.5s ease-in-out";
             slidesContainer.style.transform = `translateX(-${slideIndex * 100}%)`;
-            isTransitioning = true;
-            setTimeout(() => isTransitioning = false, 500);
         }
 
         function nextSlide() {
-            if (isTransitioning) return;
             slideIndex = (slideIndex + 1) % totalSlides;
             updateSlidePosition();
-            playMusic();  // 🎵 Music plays when next slide is triggered
+            playMusic();
         }
 
         function prevSlide() {
-            if (isTransitioning) return;
             slideIndex = (slideIndex - 1 + totalSlides) % totalSlides;
             updateSlidePosition();
-            playMusic();  // 🎵 Music plays when previous slide is triggered
+            playMusic();
         }
 
         function startAutoSlide() {
@@ -58,11 +53,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         startAutoSlide();
 
-        // Pause slider on hover (only for desktop)
         slider.addEventListener("mouseenter", stopAutoSlide);
         slider.addEventListener("mouseleave", startAutoSlide);
 
-        // Fix: Prevent multiple clicks causing double-slide
         slider.querySelector(".next").addEventListener("click", function () {
             stopAutoSlide();
             nextSlide();
@@ -75,9 +68,8 @@ document.addEventListener("DOMContentLoaded", function () {
             startAutoSlide();
         });
 
-        // Swipe functionality for mobile (🎵 Music starts on swipe)
         slider.addEventListener("touchstart", (e) => {
-            if (e.touches.length > 1) return; // Ignore multi-touch
+            if (e.touches.length > 1) return;
             startX = e.touches[0].clientX;
             isSwiping = true;
         });
@@ -90,24 +82,61 @@ document.addEventListener("DOMContentLoaded", function () {
         slider.addEventListener("touchend", () => {
             if (!isSwiping) return;
             isSwiping = false;
-
             let swipeDistance = startX - endX;
-
             if (swipeDistance > 50) {
                 stopAutoSlide();
                 nextSlide();
-                playMusic(); // 🎵 Music plays on swipe left
+                playMusic();
                 startAutoSlide();
             } else if (swipeDistance < -50) {
                 stopAutoSlide();
                 prevSlide();
-                playMusic(); // 🎵 Music plays on swipe right
+                playMusic();
                 startAutoSlide();
             }
         });
 
-        // Start music when clicking anywhere in the slider
         slider.addEventListener("click", playMusic);
         slider.addEventListener("touchend", playMusic);
+    });
+
+    // Modal Handling
+    function setupModal(openBtnId, modalId, closeBtnId) {
+        const openBtn = document.getElementById(openBtnId);
+        const modal = document.getElementById(modalId);
+        const closeBtn = document.getElementById(closeBtnId);
+
+        openBtn.addEventListener("click", function () {
+            modal.style.display = "block";
+        });
+
+        closeBtn.addEventListener("click", function () {
+            modal.style.display = "none";
+        });
+
+        window.addEventListener("click", function (event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+    }
+
+    setupModal("openModal", "modal", "closeModal");
+    setupModal("openMap", "mapModal", "closeMap");
+    setupModal("openDonate", "donationModal", "closeDonate");
+    setupModal("openContact", "contactModal", "closeContact");
+
+    // Copy Phone Number Functionality
+    const copyPhoneBtn = document.getElementById("copyPhone");
+    const phoneNumber = document.getElementById("phoneNumber");
+    const copySuccessMsg = document.getElementById("copySuccess");
+
+    copyPhoneBtn.addEventListener("click", function () {
+        navigator.clipboard.writeText(phoneNumber.textContent).then(() => {
+            copySuccessMsg.style.display = "inline";
+            setTimeout(() => {
+                copySuccessMsg.style.display = "none";
+            }, 2000);
+        });
     });
 });
