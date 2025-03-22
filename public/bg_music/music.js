@@ -4,7 +4,7 @@ const audio = document.getElementById("audio");
 const toggleVolume = document.getElementById("toggle-volume");
 const volumeContainer = document.getElementById("volume-container");
 
-let isPlaying = false;
+let isPlaying = true;
 
 
 // Play music automatically
