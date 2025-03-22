@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Select audio element
     const audio = document.getElementById("audio");
     let isPlaying = false;
 
@@ -13,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Automatic Image Slider for each slider container
+    // Image Slider Functionality
     const sliders = document.querySelectorAll(".slider");
 
     sliders.forEach((slider) => {
@@ -53,9 +52,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         startAutoSlide();
 
-        slider.addEventListener("mouseenter", stopAutoSlide);
-        slider.addEventListener("mouseleave", startAutoSlide);
-
         slider.querySelector(".next").addEventListener("click", function () {
             stopAutoSlide();
             nextSlide();
@@ -68,8 +64,8 @@ document.addEventListener("DOMContentLoaded", function () {
             startAutoSlide();
         });
 
+        // Swipe functionality
         slider.addEventListener("touchstart", (e) => {
-            if (e.touches.length > 1) return;
             startX = e.touches[0].clientX;
             isSwiping = true;
         });
@@ -83,6 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!isSwiping) return;
             isSwiping = false;
             let swipeDistance = startX - endX;
+
             if (swipeDistance > 50) {
                 stopAutoSlide();
                 nextSlide();
@@ -95,9 +92,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 startAutoSlide();
             }
         });
+    });
 
-        slider.addEventListener("click", playMusic);
-        slider.addEventListener("touchend", playMusic);
+    // Play music when any button is clicked
+    document.querySelectorAll("button").forEach(button => {
+        button.addEventListener("click", playMusic);
     });
 
     // Modal Handling
@@ -108,6 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         openBtn.addEventListener("click", function () {
             modal.style.display = "block";
+            playMusic(); // Start music when modal opens
         });
 
         closeBtn.addEventListener("click", function () {
@@ -125,18 +125,4 @@ document.addEventListener("DOMContentLoaded", function () {
     setupModal("openMap", "mapModal", "closeMap");
     setupModal("openDonate", "donationModal", "closeDonate");
     setupModal("openContact", "contactModal", "closeContact");
-
-    // Copy Phone Number Functionality
-    const copyPhoneBtn = document.getElementById("copyPhone");
-    const phoneNumber = document.getElementById("phoneNumber");
-    const copySuccessMsg = document.getElementById("copySuccess");
-
-    copyPhoneBtn.addEventListener("click", function () {
-        navigator.clipboard.writeText(phoneNumber.textContent).then(() => {
-            copySuccessMsg.style.display = "inline";
-            setTimeout(() => {
-                copySuccessMsg.style.display = "none";
-            }, 2000);
-        });
-    });
 });
