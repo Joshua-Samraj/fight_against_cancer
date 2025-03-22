@@ -5,7 +5,7 @@ const toggleVolume = document.getElementById("toggle-volume");
 const volumeContainer = document.getElementById("volume-container");
 
 let isPlaying = false;
-musicBtn.textContent = "Play Music";
+
 
 // Play music automatically
 window.addEventListener("DOMContentLoaded", () => {
