@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visitor Tracker</title>
+</head>
+<body>
+    <h1>Welcome to My Website</h1>
+    <p>Visitor Count: <span id="visitorCount">Loading...</span></p>
+
+    <script>
+        // Replace 'your-vercel-url' with the actual Vercel URL
+        const BASE_URL = "https://fight-against-cancer.vercel.app/";
+
+        // Increase visitor count when page loads
+        fetch(`${BASE_URL}/increase-visitor`, { method: "POST" })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("visitorCount").innerText = data.count;
+        });
+
+        // Fetch visitor count
+        fetch(`${BASE_URL}/get-visitor`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("visitorCount").innerText = data.count;
+        });
+    </script>
+</body>
+</html>
