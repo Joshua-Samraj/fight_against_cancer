@@ -16,12 +16,12 @@ window.addEventListener("DOMContentLoaded", () => {
 // Toggle Play/Pause
 musicBtn.addEventListener("click", () => {
     if (isPlaying) {
-        audio.pause();
+        audio.play();
         musicBtn.textContent = "Pause Music";
     } else {
         
 
-        audio.play();
+        audio.pause();
         musicBtn.textContent = "Play Music";
     }
     isPlaying = !isPlaying;
