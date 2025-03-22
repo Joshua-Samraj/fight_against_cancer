@@ -1,28 +1,24 @@
 const musicBtn = document.getElementById("music-btn");
 const audio = document.getElementById("audio");
 
-let isPlaying = false;
+let isPlaying = true; // Default to playing
 
-// Autoplay on page load (Muted to bypass restrictions)
+// Autoplay on page load
 window.addEventListener("DOMContentLoaded", () => {
-    audio.muted = true; // Start muted to allow autoplay
+    audio.muted = false; // Ensure it's unmuted
     audio.play().then(() => {
         console.log("Audio autoplay started.");
-        audio.muted = false; // Unmute after successful play
         musicBtn.textContent = "Pause Music";
-        isPlaying = true;
     }).catch(error => {
         console.log("Autoplay blocked, waiting for user interaction:", error);
     });
 });
 
-// Click anywhere to unmute and play audio if autoplay was blocked
+// Click anywhere to start audio if autoplay is blocked
 document.body.addEventListener("click", () => {
-    if (!isPlaying) {
+    if (audio.paused) {
         audio.play();
-        audio.muted = false;
         musicBtn.textContent = "Pause Music";
-        isPlaying = true;
     }
 }, { once: true }); // Runs only once
 
@@ -33,7 +29,6 @@ musicBtn.addEventListener("click", () => {
         musicBtn.textContent = "Play Music";
     } else {
         audio.play();
-        audio.muted = false; // Ensure it's unmuted when played manually
         musicBtn.textContent = "Pause Music";
     }
     isPlaying = !isPlaying;
