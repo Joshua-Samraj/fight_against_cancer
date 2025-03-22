@@ -1,9 +1,10 @@
 const musicBtn = document.getElementById("music-btn");
 const audio = document.getElementById("audio");
+const allButtons = document.querySelectorAll("button"); // Select all buttons
 
 let isPlaying = false; // Start in paused state
 
-// Function to start audio on user interaction (scroll or touch)
+// Function to start audio on user interaction
 const startAudio = () => {
     audio.play().then(() => {
         console.log("Audio started on user interaction.");
@@ -13,14 +14,16 @@ const startAudio = () => {
         console.log("Playback failed:", error);
     });
 
-    // Remove event listeners after first interaction
+    // Remove event listeners after first activation
     window.removeEventListener("scroll", startAudio);
     window.removeEventListener("touchstart", startAudio);
+    allButtons.forEach(btn => btn.removeEventListener("click", startAudio));
 };
 
-// Listen for the first user scroll or touch event to start audio
+// Listen for first user scroll, touch, or button click to start audio
 window.addEventListener("scroll", startAudio, { once: true });
 window.addEventListener("touchstart", startAudio, { once: true });
+allButtons.forEach(btn => btn.addEventListener("click", startAudio, { once: true }));
 
 // Toggle Play/Pause Button
 musicBtn.addEventListener("click", () => {
