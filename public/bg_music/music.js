@@ -1,40 +1,40 @@
 const musicBtn = document.getElementById("music-btn");
-const volumeSlider = document.getElementById("volume-slider");
 const audio = document.getElementById("audio");
-const toggleVolume = document.getElementById("toggle-volume");
-const volumeContainer = document.getElementById("volume-container");
 
 let isPlaying = false;
 
-// Attempt to autoplay (start muted to bypass restrictions)
+// Autoplay on page load (Muted to bypass restrictions)
 window.addEventListener("DOMContentLoaded", () => {
-    audio.muted = true;  // Start muted to allow autoplay
+    audio.muted = true; // Start muted to allow autoplay
     audio.play().then(() => {
-        audio.muted = false; // Unmute after play starts
+        console.log("Audio autoplay started.");
+        audio.muted = false; // Unmute after successful play
         musicBtn.textContent = "Pause Music";
         isPlaying = true;
-    }).catch(error => console.log("Autoplay blocked:", error));
+    }).catch(error => {
+        console.log("Autoplay blocked, waiting for user interaction:", error);
+    });
 });
 
-// Toggle Play/Pause
+// Click anywhere to unmute and play audio if autoplay was blocked
+document.body.addEventListener("click", () => {
+    if (!isPlaying) {
+        audio.play();
+        audio.muted = false;
+        musicBtn.textContent = "Pause Music";
+        isPlaying = true;
+    }
+}, { once: true }); // Runs only once
+
+// Toggle Play/Pause Button
 musicBtn.addEventListener("click", () => {
     if (isPlaying) {
         audio.pause();
         musicBtn.textContent = "Play Music";
     } else {
         audio.play();
-        audio.muted = false; // Unmute when user interacts
+        audio.muted = false; // Ensure it's unmuted when played manually
         musicBtn.textContent = "Pause Music";
     }
     isPlaying = !isPlaying;
-});
-
-// Show/hide volume slider
-toggleVolume.addEventListener("click", () => {
-    volumeContainer.style.display = (volumeContainer.style.display === "none") ? "block" : "none";
-});
-
-// Adjust volume
-volumeSlider.addEventListener("input", (event) => {
-    audio.volume = event.target.value;
 });
