@@ -38,14 +38,14 @@ document.addEventListener("DOMContentLoaded", function () {
             if (isTransitioning) return;
             slideIndex = (slideIndex + 1) % totalSlides;
             updateSlidePosition();
-            playMusic();
+            playMusic();  // 🎵 Music plays when next slide is triggered
         }
 
         function prevSlide() {
             if (isTransitioning) return;
             slideIndex = (slideIndex - 1 + totalSlides) % totalSlides;
             updateSlidePosition();
-            playMusic();
+            playMusic();  // 🎵 Music plays when previous slide is triggered
         }
 
         function startAutoSlide() {
@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
             startAutoSlide();
         });
 
-        // Fix: Swipe functionality for mobile
+        // Swipe functionality for mobile (🎵 Music starts on swipe)
         slider.addEventListener("touchstart", (e) => {
             if (e.touches.length > 1) return; // Ignore multi-touch
             startX = e.touches[0].clientX;
@@ -96,15 +96,17 @@ document.addEventListener("DOMContentLoaded", function () {
             if (swipeDistance > 50) {
                 stopAutoSlide();
                 nextSlide();
+                playMusic(); // 🎵 Music plays on swipe left
                 startAutoSlide();
             } else if (swipeDistance < -50) {
                 stopAutoSlide();
                 prevSlide();
+                playMusic(); // 🎵 Music plays on swipe right
                 startAutoSlide();
             }
         });
 
-        // Start music when clicking slider anywhere
+        // Start music when clicking anywhere in the slider
         slider.addEventListener("click", playMusic);
         slider.addEventListener("touchend", playMusic);
     });
