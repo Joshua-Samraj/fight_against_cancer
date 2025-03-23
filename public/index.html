@@ -327,14 +327,14 @@
         <div class="modal-content">
             <span class="close" id="closeContact">&times;</span>
             <h2>📞 Contact Information</h2>
-    
-            <!-- Click to Call or Copy Phone Number -->
+
+            <!-- Click to Copy Phone Number -->
             <p>
                 <strong>Phone:</strong> 
-                <a href="#" id="phoneAction" class="call-link">+91 9500561937</a>
-                <span id="copySuccess" style="color: green; display: none;">✅ Number copied!</span>
+                <span id="phoneNumber" class="copy-text">+91 9500561937</span>
+                <button id="copyPhone" class="copy-btn">📋 Copy</button>
             </p>
-    
+
             <!-- Click to Open Mail App -->
             <p>
                 <strong>Email:</strong> 
@@ -342,10 +342,11 @@
                     livinghopecharitable@gmail.com
                 </a>
             </p>
+
+            <!-- Success Message -->
+            <p id="copySuccess" style="color: green; display: none;">✅ Number copied!</p>
         </div>
     </div>
-    
-    
 
 
     <script src="script.js"></script>
