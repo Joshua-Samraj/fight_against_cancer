@@ -310,27 +310,13 @@
         <div class="modal-content" style="height: 450px;">
             <span class="close" id="closeDonate">&times;</span>
             <img src="donation.jpg" alt="To Donate this event" class="modal-img_2" style="height: 650;">
-            <link rel="stylesheet" href="">
+            
 
             <!-- UPI Payment Section -->
             
         </div>
     </div>
-    <div id="donationModal_" class="modal">
-        <div class="modal-content" style="height: 450px;">
-            <span class="close" id="closeDonate">&times;</span>
-            <h2>Click the Image to Search in Google Lens</h2>
-            <a href="https://lens.google.com/uploadbyurl?url=https://i.postimg.cc/6qpTjcG5/croped-qr.jpg" target="_blank">
-            <img src="croped_qr.jpg" alt="Search Image" width="300">
-            </a>
-            <a href="https://lens.google.com/uploadbyurl?url=https://i.postimg.cc/6qpTjcG5/croped-qr.jpg" class="btn_donate" target="_blank">
-                <h1>click this for donate</h1>
-                
-            </a>
-            
-        </div>
-    </div>
-
+    
 
 
     <!-- Modal for Google Map -->
@@ -341,14 +327,14 @@
         <div class="modal-content">
             <span class="close" id="closeContact">&times;</span>
             <h2>📞 Contact Information</h2>
-
-            <!-- Click to Copy Phone Number -->
+    
+            <!-- Click to Call or Copy Phone Number -->
             <p>
                 <strong>Phone:</strong> 
-                <span id="phoneNumber" class="copy-text">+91 9500561937</span>
-                <button id="copyPhone" class="copy-btn">📋 Copy</button>
+                <a href="#" id="phoneAction" class="call-link">+91 9500561937</a>
+                <span id="copySuccess" style="color: green; display: none;">✅ Number copied!</span>
             </p>
-
+    
             <!-- Click to Open Mail App -->
             <p>
                 <strong>Email:</strong> 
@@ -356,11 +342,10 @@
                     livinghopecharitable@gmail.com
                 </a>
             </p>
-
-            <!-- Success Message -->
-            <p id="copySuccess" style="color: green; display: none;">✅ Number copied!</p>
         </div>
     </div>
+    
+    
 
 
     <script src="script.js"></script>
