@@ -143,24 +143,4 @@ document.addEventListener("DOMContentLoaded", function () {
             }, 2000);
         });
     });
-
-    // Mobile Confirmation Before Dial Pad
-    function isMobileDevice() {
-        return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    }
-
-    const phoneLink = document.getElementById("phoneLink"); // Replace with your actual phone link element ID
-
-    if (phoneLink) {
-        phoneLink.addEventListener("click", function (event) {
-            if (isMobileDevice()) {
-                event.preventDefault();
-                const phoneNumber = phoneLink.getAttribute("href").replace("tel:", "");
-                const confirmCall = confirm(`Do you want to call ${phoneNumber}?`);
-                if (confirmCall) {
-                    window.location.href = phoneLink.getAttribute("href");
-                }
-            }
-        });
-    }
 });
