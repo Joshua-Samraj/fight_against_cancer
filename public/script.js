@@ -1,146 +1,239 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Select audio element
+    // Audio setup removed
     const audio = document.getElementById("audio");
-    let isPlaying = false;
+    let audioInitialized = false;
 
-    function playMusic() {
-        if (!isPlaying) {
-            audio.play().then(() => {
-                isPlaying = true;
-            }).catch(error => {
-                console.log("Playback failed:", error);
-            });
+    function initAudio() {
+        if (!audioInitialized && audio) {
+            audio.volume = 0.5;
+            audioInitialized = true;
         }
     }
 
-    // Automatic Image Slider for each slider container
-    const sliders = document.querySelectorAll(".slider");
+    // Enhanced Slider Functionality
+    function initializeSliders() {
+        const sliders = document.querySelectorAll(".slider");
 
-    sliders.forEach((slider) => {
-        let slideIndex = 0;
-        const slidesContainer = slider.querySelector(".slides");
-        const slides = slider.querySelectorAll(".slide");
-        const totalSlides = slides.length;
-        let autoSlideInterval;
-        let isSwiping = false;
-        let startX = 0;
-        let endX = 0;
-
-        function updateSlidePosition() {
-            slidesContainer.style.transition = "transform 0.5s ease-in-out";
-            slidesContainer.style.transform = `translateX(-${slideIndex * 100}%)`;
+        if (sliders.length === 0) {
+            console.log("No sliders found");
+            return;
         }
 
-        function nextSlide() {
-            slideIndex = (slideIndex + 1) % totalSlides;
-            updateSlidePosition();
-            playMusic();
-        }
+        sliders.forEach((slider) => {
+            let slideIndex = 0;
+            const slidesContainer = slider.querySelector(".slides");
+            const slides = slider.querySelectorAll(".slide");
+            const totalSlides = slides.length;
+            let autoSlideInterval;
+            let isSwiping = false;
+            let startX = 0;
+            let endX = 0;
+            let touchStartTime = 0;
 
-        function prevSlide() {
-            slideIndex = (slideIndex - 1 + totalSlides) % totalSlides;
-            updateSlidePosition();
-            playMusic();
-        }
-
-        function startAutoSlide() {
-            autoSlideInterval = setInterval(nextSlide, 5000);
-        }
-
-        function stopAutoSlide() {
-            clearInterval(autoSlideInterval);
-        }
-
-        startAutoSlide();
-
-        slider.addEventListener("mouseenter", stopAutoSlide);
-        slider.addEventListener("mouseleave", startAutoSlide);
-
-        slider.querySelector(".next").addEventListener("click", function () {
-            stopAutoSlide();
-            nextSlide();
-            startAutoSlide();
-        });
-
-        slider.querySelector(".prev").addEventListener("click", function () {
-            stopAutoSlide();
-            prevSlide();
-            startAutoSlide();
-        });
-
-        slider.addEventListener("touchstart", (e) => {
-            if (e.touches.length > 1) return;
-            startX = e.touches[0].clientX;
-            isSwiping = true;
-        });
-
-        slider.addEventListener("touchmove", (e) => {
-            if (!isSwiping) return;
-            endX = e.touches[0].clientX;
-        });
-
-        slider.addEventListener("touchend", () => {
-            if (!isSwiping) return;
-            isSwiping = false;
-            let swipeDistance = startX - endX;
-            if (swipeDistance > 50) {
-                stopAutoSlide();
-                nextSlide();
-                playMusic();
-                startAutoSlide();
-            } else if (swipeDistance < -50) {
-                stopAutoSlide();
-                prevSlide();
-                playMusic();
-                startAutoSlide();
+            if (!slidesContainer || slides.length === 0) {
+                console.log("Slider elements missing", slider);
+                return;
             }
+
+            function updateSlidePosition() {
+                slidesContainer.style.transition = "transform 0.5s ease-in-out";
+                slidesContainer.style.transform = `translateX(-${slideIndex * 100}%)`;
+            }
+
+            function nextSlide() {
+                slideIndex = (slideIndex + 1) % totalSlides;
+                updateSlidePosition();
+            }
+
+            function prevSlide() {
+                slideIndex = (slideIndex - 1 + totalSlides) % totalSlides;
+                updateSlidePosition();
+            }
+
+            function startAutoSlide() {
+                if (autoSlideInterval) clearInterval(autoSlideInterval);
+                autoSlideInterval = setInterval(nextSlide, 5000);
+            }
+
+            function stopAutoSlide() {
+                if (autoSlideInterval) clearInterval(autoSlideInterval);
+            }
+
+            // Initialize slider
+            startAutoSlide();
+
+            // Pause on hover
+            slider.addEventListener("mouseenter", stopAutoSlide);
+            slider.addEventListener("mouseleave", startAutoSlide);
+
+            // Navigation buttons
+            const nextBtn = slider.querySelector(".next");
+            const prevBtn = slider.querySelector(".prev");
+
+            if (nextBtn) {
+                nextBtn.addEventListener("click", function (e) {
+                    e.stopPropagation();
+                    stopAutoSlide();
+                    nextSlide();
+                    startAutoSlide();
+                });
+            }
+
+            if (prevBtn) {
+                prevBtn.addEventListener("click", function (e) {
+                    e.stopPropagation();
+                    stopAutoSlide();
+                    prevSlide();
+                    startAutoSlide();
+                });
+            }
+
+            // Touch events for mobile
+            slider.addEventListener("touchstart", (e) => {
+                if (e.touches.length > 1) return;
+                startX = e.touches[0].clientX;
+                touchStartTime = Date.now();
+                isSwiping = true;
+                stopAutoSlide();
+            }, { passive: true });
+
+            slider.addEventListener("touchmove", (e) => {
+                if (!isSwiping) return;
+                endX = e.touches[0].clientX;
+            }, { passive: true });
+
+            slider.addEventListener("touchend", () => {
+                if (!isSwiping) return;
+                isSwiping = false;
+
+                const swipeDistance = startX - endX;
+                const swipeTime = Date.now() - touchStartTime;
+
+                if (Math.abs(swipeDistance) > 50 || swipeTime < 300) {
+                    if (swipeDistance > 50) {
+                        nextSlide();
+                    } else if (swipeDistance < -50) {
+                        prevSlide();
+                    }
+                }
+
+                startAutoSlide();
+            }, { passive: true });
         });
+    }
 
-        slider.addEventListener("click", playMusic);
-        slider.addEventListener("touchend", playMusic);
-    });
-
-    // Modal Handling
+    // Modal Handling with improved accessibility
     function setupModal(openBtnId, modalId, closeBtnId) {
         const openBtn = document.getElementById(openBtnId);
         const modal = document.getElementById(modalId);
         const closeBtn = document.getElementById(closeBtnId);
+
         if (!openBtn || !modal || !closeBtn) {
             console.log(`Missing element(s) for modal: ${modalId}`);
             return;
         }
 
-        openBtn.addEventListener("click", function () {
+        function openModal() {
             modal.style.display = "block";
-        });
+            document.body.style.overflow = "hidden";
+            modal.setAttribute('aria-hidden', 'false');
+        }
 
-        closeBtn.addEventListener("click", function () {
+        function closeModal() {
             modal.style.display = "none";
+            document.body.style.overflow = "";
+            modal.setAttribute('aria-hidden', 'true');
+        }
+
+        openBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            openModal();
         });
 
-        window.addEventListener("click", function (event) {
-            if (event.target === modal) {
-                modal.style.display = "none";
+        closeBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            closeModal();
+        });
+
+        modal.addEventListener("click", function (e) {
+            if (e.target === modal) {
+                closeModal();
             }
+        });
+
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape" && modal.style.display === "block") {
+                closeModal();
+            }
+        });
+
+        modal.setAttribute('aria-hidden', 'true');
+        modal.setAttribute('role', 'dialog');
+        modal.setAttribute('aria-modal', 'true');
+    }
+
+    // Copy Phone Number with better feedback
+    function setupCopyFunctionality() {
+        const copyPhoneBtn = document.getElementById("copyPhone");
+        const phoneNumber = document.getElementById("phoneNumber");
+        const copySuccessMsg = document.getElementById("copySuccess");
+
+        if (!copyPhoneBtn || !phoneNumber) return;
+
+        copyPhoneBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            const textToCopy = phoneNumber.textContent.trim();
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                if (copySuccessMsg) {
+                    copySuccessMsg.style.display = "inline";
+                    setTimeout(() => {
+                        copySuccessMsg.style.display = "none";
+                    }, 2000);
+                }
+
+                copyPhoneBtn.textContent = "Copied!";
+                setTimeout(() => {
+                    copyPhoneBtn.textContent = "Copy";
+                }, 2000);
+            }).catch(err => {
+                console.error("Failed to copy text: ", err);
+                const textArea = document.createElement("textarea");
+                textArea.value = textToCopy;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    if (copySuccessMsg) {
+                        copySuccessMsg.style.display = "inline";
+                        setTimeout(() => {
+                            copySuccessMsg.style.display = "none";
+                        }, 2000);
+                    }
+                } catch (err) {
+                    console.error("Fallback copy failed: ", err);
+                }
+                document.body.removeChild(textArea);
+            });
         });
     }
 
-    setupModal("openModal", "modal", "closeModal");
-    setupModal("openMap", "mapModal", "closeMap");
-    setupModal("openDonate", "donationModal", "closeDonate");
-    setupModal("openContact", "contactModal", "closeContact");
+    // Initialize all components
+    function init() {
+        initializeSliders();
 
-    // Copy Phone Number Functionality
-    const copyPhoneBtn = document.getElementById("copyPhone");
-    const phoneNumber = document.getElementById("phoneNumber");
-    const copySuccessMsg = document.getElementById("copySuccess");
+        setupModal("openModal", "modal", "closeModal");
+        setupModal("openMap", "mapModal", "closeMap");
+        setupModal("openDonate", "donationModal", "closeDonate");
+        setupModal("openContact", "contactModal", "closeContact");
 
-    copyPhoneBtn.addEventListener("click", function () {
-        navigator.clipboard.writeText(phoneNumber.textContent).then(() => {
-            copySuccessMsg.style.display = "inline";
-            setTimeout(() => {
-                copySuccessMsg.style.display = "none";
-            }, 2000);
-        });
-    });
+        setupCopyFunctionality();
+
+        document.addEventListener('click', function initAudioOnInteraction() {
+            initAudio();
+            document.removeEventListener('click', initAudioOnInteraction);
+        }, { once: true });
+    }
+
+    init();
 });
